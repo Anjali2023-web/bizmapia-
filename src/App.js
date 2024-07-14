@@ -1,23 +1,27 @@
-import logo from './logo.svg';
 import './App.css';
+import PopzupInfo from './Components/About';
+import AdsList from './Components/AdsList';
+import Dashboard from './Components/DashBoard';
+import Footer from './Components/Footer';
+import Hero from './Components/Hero';
+import LoginForm from './Components/Login';
+import Navbar from './Components/Navbar';
+import TopCatagories from './Components/TopCatagories';
+import TopLists from './Components/TopLists';
+import RegistrationForm from './Components/RegistrationForm';
+import ConcernedLists from './Components/ConcernedAds';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="bg-gradient-to-r from-slate-100 to-sky-100">
+     <Navbar/>
+      <Hero/>
+    <TopCatagories/>
+    <ConcernedLists/>
+      <AdsList/>
+      <TopLists/>
+      <PopzupInfo/>
+      <Footer/>
     </div>
   );
 }
