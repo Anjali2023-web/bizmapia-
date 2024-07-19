@@ -1,7 +1,7 @@
 import './App.css';
+import { Routes, Route } from 'react-router-dom';
 import PopzupInfo from './Components/About';
 import AdsList from './Components/AdsList';
-import Dashboard from './Components/DashBoard';
 import Footer from './Components/Footer';
 import Hero from './Components/Hero';
 import LoginForm from './Components/Login';
@@ -10,18 +10,36 @@ import TopCatagories from './Components/TopCatagories';
 import TopLists from './Components/TopLists';
 import RegistrationForm from './Components/RegistrationForm';
 import ConcernedLists from './Components/ConcernedAds';
+import Dashboardd from './Components/DashBoard';
+import PaswordUpdateForm from './Components/password_update';
+import ProfileUpdateForm from './Components/profile_update';
+
+
+
 
 function App() {
   return (
     <div className="bg-gradient-to-r from-slate-100 to-sky-100">
-     <Navbar/>
-      <Hero/>
-    <TopCatagories/>
-    <ConcernedLists/>
-      <AdsList/>
-      <TopLists/>
-      <PopzupInfo/>
-      <Footer/>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={
+          <>
+            <Hero />
+            <TopCatagories />
+            <ConcernedLists />
+            <AdsList />
+            <TopLists />
+            <PopzupInfo />
+            <Footer />
+          </>
+        } />
+        <Route path="/register" element={<RegistrationForm/>} />
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="/dashboard" element={<Dashboardd/>} />
+        <Route path="/resetpwd" element={<PaswordUpdateForm/>} />
+        <Route path="/profile_update" element={<ProfileUpdateForm/> } />
+      </Routes>
+      
     </div>
   );
 }
