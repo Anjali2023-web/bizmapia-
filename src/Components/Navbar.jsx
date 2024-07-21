@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,7 +10,6 @@ const Navbar = () => {
     setIsOpen(!isOpen);
   };
 
-  // Close the menu when clicking outside of it
   const handleOutsideClick = (event) => {
     if (menuRef.current && !menuRef.current.contains(event.target)) {
       setIsOpen(false);
@@ -18,68 +18,96 @@ const Navbar = () => {
 
   useEffect(() => {
     document.addEventListener('mousedown', handleOutsideClick);
-
     return () => {
       document.removeEventListener('mousedown', handleOutsideClick);
     };
   }, []);
 
   return (
-    <nav className="px-10 py-4">
-      <div className="container mx-auto flex justify-between items-center h-12  drop-shadow-sm">
-        <div className="text-gray-700 ml-16 font-bold text-xl">
-        <Link to="/">
-          Popz<span className='text-red-500 font-thin'>Up</span>
-        </Link>
-        </div>
-
-        {/* Hamburger menu for mobile */}
-        <div className={`lg:hidden ${isOpen ? 'hidden' : 'block'}`}>
-          <button
-            onClick={toggleNavbar}
-            className="text-gray-700 focus:outline-none focus:shadow-outline my-6"
-          >
-            <svg
-              className="h-6 w-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
+    <motion.nav 
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ type: 'spring', stiffness: 120, damping: 20 }}
+      className="bg-gradient-to-r from-gray-700 to-slate-600 text-white shadow-lg"
+    >
+      <div className="container mx-auto px-4 py-3">
+        <div className="flex justify-between items-center">
+          <Link to="/" className="flex items-center space-x-2">
+            <motion.div
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="text-xl sm:text-2xl font-bold"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h16m-7 6h7"
-              ></path>
-            </svg>
-          </button>
-        </div>
+              Popz<span className='text-red-500 font-thin'>Up</span>
+            </motion.div>
+          </Link>
 
-        {/* Navbar links */}
-        <div
-          ref={menuRef}
-          className={`${
-            isOpen ? 'block' : 'hidden'
-          } lg:flex lg:items-center lg:w-auto mr-8`}
-        >
-          <div className='flex items-center'>
+          <div className="md:hidden">
+            <motion.button
+              whileTap={{ scale: 0.95 }}
+              onClick={toggleNavbar}
+              className="text-white focus:outline-none focus:ring-2 focus:ring-red-500 rounded-md p-2"
+            >
+              <svg
+                className="h-6 w-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16m-7 6h7"}
+                ></path>
+              </svg>
+            </motion.button>
+          </div>
+
+          <div className="hidden md:block">
             <Link to="/register">
-              <a
-                rel="noopener noreferrer"
-                className="bg-slate-200 text-gray-800 px-6 py-3 rounded-md mb-2 ml-4 
-           shadow-md border border-gray-300 font-semibold 
-           transition duration-300 ease-in-out
-           hover:bg-slate-300 hover:text-gray-900 hover:shadow-lg 
-           focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-opacity-50"
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-red-500 text-white px-4 sm:px-6 py-2 rounded-md text-sm sm:text-base font-semibold 
+                transition duration-300 ease-in-out hover:bg-red-600 focus:outline-none 
+                focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
               >
                 Business Login
-              </a>
+              </motion.button>
             </Link>
           </div>
         </div>
       </div>
-    </nav>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            ref={menuRef}
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden bg-gray-800 overflow-hidden"
+          >
+            <div className="px-4 py-4">
+              <Link to="/register" onClick={() => setIsOpen(false)}>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="w-full bg-red-500 text-white px-6 py-3 rounded-md text-sm font-semibold 
+                  transition duration-300 ease-in-out hover:bg-red-600 focus:outline-none 
+                  focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
+                >
+                  Business Login
+                </motion.button>
+              </Link>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.nav>
   );
 };
 
