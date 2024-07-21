@@ -53,14 +53,14 @@ const App = () => {
           onChange={(index) => setActiveIndex(index)}
           renderArrowPrev={(onClickHandler, hasPrev, label) =>
             hasPrev && (
-              <button type="button" onClick={onClickHandler} title={label} className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 bg-white bg-opacity-80 hover:bg-opacity-100 text-purple-600 p-3 rounded-full transition duration-300 shadow-md">
+              <button type="button" onClick={onClickHandler} title={label} className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 bg-white bg-opacity-5 hover:bg-opacity-100 text-purple-600 p-3 rounded-full transition duration-300 shadow-md">
                 <FaChevronLeft className="text-2xl" />
               </button>
             )
           }
           renderArrowNext={(onClickHandler, hasNext, label) =>
             hasNext && (
-              <button type="button" onClick={onClickHandler} title={label} className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 bg-white bg-opacity-80 hover:bg-opacity-100 text-purple-600 p-3 rounded-full transition duration-300 shadow-md">
+              <button type="button" onClick={onClickHandler} title={label} className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 bg-white bg-opacity-5 hover:bg-opacity-100 text-purple-600 p-3 rounded-full transition duration-300 shadow-md">
                 <FaChevronRight className="text-2xl" />
               </button>
             )
