@@ -23,8 +23,22 @@ function Sidebar({ setCurrentContent }) {
             </button>
             {isDropdownOpen && (
               <ul className="space-y-2 pl-6">
-                <li><a href="#" className="block p-2 hover:bg-gray-700">Active Listings</a></li>
-                <li><a href="#" className="block p-2 hover:bg-gray-700">Add New Listings</a></li>
+                <li>
+                  <button 
+                    onClick={() => setCurrentContent('activeListings')} 
+                    className="block p-2 hover:bg-gray-700 w-full text-left"
+                  >
+                    Active Listings
+                  </button>
+                </li>
+                <li>
+                  <button 
+                    onClick={() => setCurrentContent('addNewListing')} 
+                    className="block p-2 hover:bg-gray-700 w-full text-left"
+                  >
+                    Add New Listings
+                  </button>
+                </li>
               </ul>
             )}
           </li>
@@ -35,6 +49,12 @@ function Sidebar({ setCurrentContent }) {
             >
               Edit Profile
             </button>
+            <button 
+              onClick={() => setCurrentContent('reqcat')} 
+              className="w-full text-left p-4 hover:bg-gray-700"
+            >
+              Request Catagory
+            </button>
           </li>
           <li>
             <button 
@@ -44,11 +64,12 @@ function Sidebar({ setCurrentContent }) {
               Change Password
             </button>
           </li>
-          {/* Add more items as needed */}
         </ul>
       </nav>
       <div className="p-4 border-t border-gray-700">
-        <button className="w-full text-left flex items-center p-4 hover:bg-gray-700">
+        <button 
+        onClick={() => setCurrentContent('logout')}
+        className="w-full text-left flex items-center p-4 hover:bg-gray-700">
           Logout
         </button>
       </div>

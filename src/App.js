@@ -14,6 +14,7 @@ import Dashboardd from './Components/DashBoard';
 import PaswordUpdateForm from './Components/password_update';
 import ProfileUpdateForm from './Components/profile_update';
 import FloatingButton from './Components/FloatingActionButton';
+import Logout from './Components/Logout';
 
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboardd/>} />
         <Route path="/resetpwd" element={<PaswordUpdateForm/>} />
         <Route path="/profile_update" element={<ProfileUpdateForm/> } />
+        <Route path="/logout" element={<Logout />} />
       </Routes>
       
       {/* Add the FloatingButton component here */}
