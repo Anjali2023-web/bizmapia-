@@ -1,47 +1,75 @@
-import React, { useState } from 'react';
-import { FaStar, FaUpload } from 'react-icons/fa';
+import React, { useState } from "react";
+import axios from "axios";
+import { FaStar, FaUpload } from "react-icons/fa";
 
 function ListingForm() {
   const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    image: '',
+    title: "",
+    description: "",
+    image: null,
     rating: 0,
-    location: '',
-    productOwner: ''
+    location: "",
+    productOwner: "",
   });
   const [previewImage, setPreviewImage] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleRatingChange = (rating) => {
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
       ...prevState,
-      rating
+      rating,
     }));
   };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setFormData(prevState => ({
+      setFormData((prevState) => ({
         ...prevState,
-        image: file
+        image: file,
       }));
       setPreviewImage(URL.createObjectURL(file));
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
-    // Here you would typically send the data to your backend
+    setLoading(true);
+    setError(null);
+
+    const data = new FormData();
+    data.append("title", formData.title);
+    data.append("description", formData.description);
+    data.append("location", formData.location);
+    data.append("productOwner", formData.productOwner);
+    data.append("rating", formData.rating);
+    data.append("image", formData.image);
+
+    try {
+      const response = await axios.post("/listings", data, {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      console.log("Listing created successfully:", response.data);
+      // Handle success (e.g., redirect, show success message, etc.)
+    } catch (err) {
+      console.error("Error creating listing:", err);
+      setError("Failed to create listing. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -66,7 +94,12 @@ function ListingForm() {
                     placeholder="Listing Title"
                     required
                   />
-                  <label htmlFor="title" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Listing Title</label>
+                  <label
+                    htmlFor="title"
+                    className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                  >
+                    Listing Title
+                  </label>
                 </div>
                 <div className="relative">
                   <textarea
@@ -79,7 +112,12 @@ function ListingForm() {
                     placeholder="Description"
                     required
                   ></textarea>
-                  <label htmlFor="description" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Description</label>
+                  <label
+                    htmlFor="description"
+                    className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                  >
+                    Description
+                  </label>
                 </div>
                 <div className="relative">
                   <input
@@ -92,7 +130,12 @@ function ListingForm() {
                     placeholder="Location"
                     required
                   />
-                  <label htmlFor="location" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Location</label>
+                  <label
+                    htmlFor="location"
+                    className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                  >
+                    Location
+                  </label>
                 </div>
                 <div className="relative">
                   <input
@@ -105,7 +148,12 @@ function ListingForm() {
                     placeholder="Product Owner"
                     required
                   />
-                  <label htmlFor="productOwner" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Product Owner</label>
+                  <label
+                    htmlFor="productOwner"
+                    className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                  >
+                    Product Owner
+                  </label>
                 </div>
                 <div className="relative">
                   <label className="block text-gray-700 text-sm font-bold mb-2">
@@ -115,7 +163,11 @@ function ListingForm() {
                     {[1, 2, 3, 4, 5].map((star) => (
                       <FaStar
                         key={star}
-                        className={`cursor-pointer text-2xl ${star <= formData.rating ? 'text-yellow-400' : 'text-gray-300'}`}
+                        className={`cursor-pointer text-2xl ${
+                          star <= formData.rating
+                            ? "text-yellow-400"
+                            : "text-gray-300"
+                        }`}
                         onClick={() => handleRatingChange(star)}
                       />
                     ))}
@@ -128,14 +180,27 @@ function ListingForm() {
                   <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                     <div className="space-y-1 text-center">
                       {previewImage ? (
-                        <img src={previewImage} alt="Preview" className="mx-auto h-32 w-32 object-cover rounded-md" />
+                        <img
+                          src={previewImage}
+                          alt="Preview"
+                          className="mx-auto h-32 w-32 object-cover rounded-md"
+                        />
                       ) : (
                         <FaUpload className="mx-auto h-12 w-12 text-gray-400" />
                       )}
                       <div className="flex text-sm text-gray-600">
-                        <label htmlFor="image" className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                        <label
+                          htmlFor="image"
+                          className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                        >
                           <span>Upload a file</span>
-                          <input id="image" name="image" type="file" className="sr-only" onChange={handleImageChange} />
+                          <input
+                            id="image"
+                            name="image"
+                            type="file"
+                            className="sr-only"
+                            onChange={handleImageChange}
+                          />
                         </label>
                         <p className="pl-1">or drag and drop</p>
                       </div>
@@ -147,9 +212,14 @@ function ListingForm() {
                 </div>
               </div>
               <div className="pt-4">
-                <button type="submit" className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                  Create Listing
+                <button
+                  type="submit"
+                  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  disabled={loading}
+                >
+                  {loading ? "Creating Listing..." : "Create Listing"}
                 </button>
+                {error && <p className="text-red-500 mt-2">{error}</p>}
               </div>
             </form>
           </div>

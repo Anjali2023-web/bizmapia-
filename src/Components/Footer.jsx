@@ -21,7 +21,7 @@ const Footer = () => {
           >
             <h2 className="text-2xl font-bold mb-4 text-blue-300">About Us</h2>
             <p className="text-gray-300 leading-relaxed">
-              PopZup is a leading local search engine, connecting businesses with their target audience. Our mission is to empower local businesses and provide the best quality service and customer satisfaction.
+              BisMapia is a leading local search engine, connecting businesses with their target audience. Our mission is to empower local businesses and provide the best quality service and customer satisfaction.
             </p>
           </motion.div>
           <motion.div 
@@ -75,7 +75,7 @@ const Footer = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.6 }}
           >
-            &copy; {currentYear} PopZup | Powered by WePromote Business Solution
+            &copy; {currentYear} BisMapia | Powered by WePromote Business Solution
           </motion.p>
         </div>
       </div>

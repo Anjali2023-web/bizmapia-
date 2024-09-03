@@ -1,63 +1,127 @@
-import React, { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { FcElectronics } from "react-icons/fc";
-import { FaCar, FaBriefcase, FaHome, FaToolbox } from "react-icons/fa";
-import { MdTableBar } from "react-icons/md";
+import React from 'react';
+import { motion } from 'framer-motion';
+import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
+// Sample icons
 const categories = [
-  { name: 'Electronics', icon: <FcElectronics />, color: 'from-gray-800 to-gray-900' },
-  { name: 'Cars', icon: <FaCar />, color: 'from-blue-900 to-indigo-900' },
-  { name: 'Furniture', icon: <MdTableBar />, color: 'from-purple-900 to-indigo-900' },
-  { name: 'Jobs', icon: <FaBriefcase />, color: 'from-green-900 to-teal-900' },
-  { name: 'Real Estate', icon: <FaHome />, color: 'from-red-900 to-pink-900' },
-  { name: 'Services', icon: <FaToolbox />, color: 'from-yellow-800 to-orange-900' },
+  { name: 'Restaurants', icon: '🍽️', color: 'bg-orange-200' },
+  { name: 'Hotels', icon: '🏨', color: 'bg-blue-200' },
+  { name: 'Beauty Spa', icon: '💆', color: 'bg-pink-200' },
+  { name: 'Home Decor', icon: '🛋️', color: 'bg-teal-200' },
+  { name: 'Wedding Planning', icon: '👰', color: 'bg-yellow-200' },
+  { name: 'Education', icon: '🎓', color: 'bg-purple-200' },
+  { name: 'Rent & Hire', icon: '🔧', color: 'bg-red-200' },
+  { name: 'Hospitals', icon: '🏥', color: 'bg-blue-200' },
+  { name: 'Contractors', icon: '👷', color: 'bg-yellow-200' },
+  { name: 'Pet Shops', icon: '🐕', color: 'bg-teal-200' },
+  { name: 'PG/Hostels', icon: '🏠', color: 'bg-green-200' },
+  { name: 'Estate Agent', icon: '🏘️', color: 'bg-orange-200' },
+  { name: 'Dentists', icon: '🦷', color: 'bg-purple-200' },
+  { name: 'Gym', icon: '🏋️', color: 'bg-red-200' },
+  { name: 'Consultants', icon: '💼', color: 'bg-blue-200' },
+  { name: 'Event Organisers', icon: '🎉', color: 'bg-yellow-200' },
+  { name: 'Driving Schools', icon: '🚗', color: 'bg-teal-200' },
+  { name: 'Packers & Movers', icon: '🚛', color: 'bg-green-200' },
+  { name: 'Courier Service', icon: '📦', color: 'bg-gray-200' }
 ];
 
+const CategoriesContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+`;
+
+const CategoryItem = styled(motion.div)`
+  text-align: center;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+`;
+
+const IconContainer = styled.div`
+  font-size: 40px;
+  margin-bottom: 10px;
+`;
+
+const CategoryName = styled.div`
+  font-size: 14px;
+  font-weight: bold;
+`;
+
+const ButtonContainer = styled.div`
+  text-align: center;
+  margin-top: 30px;
+`;
+
+const PopularButton = styled(motion.button)`
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+`;
+
 const Categories = () => {
+  const navigate = useNavigate();
+
+  const handleButtonClick = () => {
+    navigate('/cat');
+  };
+
   return (
-    <div className="container mx-auto px-4 py-8 sm:py-16 bg-gradient-to-b from-gray-900 to-black">
+    <div className="container mx-auto px-4 py-8 sm:py-16 bg-gray-50">
       <motion.h2 
-        className="text-3xl sm:text-4xl font-bold text-center mb-8 sm:mb-12 text-gray-100"
+        className="text-3xl sm:text-4xl font-bold text-center mb-8 sm:mb-12 text-gray-900"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
         Explore Popular Categories
       </motion.h2>
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-8">
+      <CategoriesContainer>
         {categories.map((category, index) => (
-          <CategoryCard key={index} {...category} index={index} />
+          <CategoryItem
+            key={index}
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            whileHover={{ scale: 1.05, boxShadow: "0 4px 8px rgba(0,0,0,0.2)" }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <IconContainer>{category.icon}</IconContainer>
+            <CategoryName>{category.name}</CategoryName>
+          </CategoryItem>
         ))}
-      </div>
+      </CategoriesContainer>
+      <ButtonContainer>
+        <PopularButton
+          onClick={handleButtonClick}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+        >
+          Popular Categories
+        </PopularButton>
+      </ButtonContainer>
     </div>
-  );
-};
-
-const CategoryCard = ({ icon, name, color, index }) => {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true });
-
-  return (
-    <motion.div
-      ref={ref}
-      className={`flex flex-col items-center justify-center p-4 sm:p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden bg-gradient-to-br ${color}`}
-      initial={{ opacity: 0, y: 50 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(255,255,255,0.3)" }}
-      whileTap={{ scale: 0.95 }}
-    >
-      <motion.div 
-        className="text-4xl sm:text-5xl mb-2 sm:mb-4 text-gray-200"
-        initial={{ rotate: 0 }}
-        whileHover={{ rotate: 360 }}
-        whileTap={{ rotate: 360 }}
-        transition={{ duration: 0.6 }}
-      >
-        {icon}
-      </motion.div>
-      <h3 className="text-sm sm:text-lg font-semibold text-gray-200 text-center">{name}</h3>
-    </motion.div>
   );
 };
 

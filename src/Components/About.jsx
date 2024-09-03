@@ -32,9 +32,9 @@ const PopzupInfo = () => {
             className="bg-gradient-to-br from-blue-50 to-indigo-100 shadow-lg rounded-xl p-8 lg:flex lg:items-center lg:justify-between m-8 overflow-hidden"
         >
             <div className="lg:w-2/3 lg:pr-12">
-                <h2 className="text-4xl font-extrabold mb-6 text-slate-800 leading-tight">Popzup: Elevate Your Local Business Presence</h2>
+                <h2 className="text-4xl font-extrabold mb-6 text-slate-800 leading-tight">BisMapia: Elevate Your Local Business Presence</h2>
                 <p className="text-gray-700 mb-6 text-xl leading-relaxed">
-                    Welcome to Popzup – your gateway to unparalleled local advertising. Harness the power of strategic promotion to connect with your target audience and catapult your business to new heights. As a premier local search engine, Popzup offers a robust platform to engage potential customers and amplify your brand's visibility.
+                    Welcome to BisMapia – your gateway to unparalleled local advertising. Harness the power of strategic promotion to connect with your target audience and catapult your business to new heights. As a premier local search engine, Popzup offers a robust platform to engage potential customers and amplify your brand's visibility.
                 </p>
 
                 <motion.button 
@@ -43,7 +43,7 @@ const PopzupInfo = () => {
                     whileTap={{ scale: 0.95 }}
                     className="bg-slate-600 text-white py-3 px-6 rounded-full text-lg font-semibold hover:bg-slate-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-opacity-50"
                 >
-                    {showDetails ? "Hide Details" : "Why Choose Popzup?"}
+                    {showDetails ? "Hide Details" : "Why Choose BisMapia?"}
                 </motion.button>
                 
                 {showDetails && (
@@ -54,7 +54,7 @@ const PopzupInfo = () => {
                         variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
                     >
                         {[
-                            "Massive Local Reach: Tap into Popzup's vast network of users actively searching for businesses in your city.",
+                            "Massive Local Reach: Tap into BisMapia's vast network of users actively searching for businesses in your city.",
                             "Targeted Advertising: Reach the right audience with precision filtering based on location, category, and user interests.",
                             "Enhanced Visibility: Secure top placement in search results, maximizing your chances of being seen.",
                             "Flexible Advertising Options: Choose from featured listings, free listings, and more to suit your budget and goals."

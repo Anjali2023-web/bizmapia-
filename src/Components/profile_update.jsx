@@ -40,7 +40,7 @@ const ProfileUpdateForm = () => {
     // This is a placeholder. Replace with actual API call.
     const fetchProfile = async () => {
       try {
-        const response = await axios.get('http://localhost:5050/user/profile'); // replace with actual API URL
+        const response = await axios.get('https://popzup.in/user/profile'); // replace with actual API URL
         setProfile(response.data);
       } catch (error) {
         console.error('Failed to fetch profile', error);
@@ -94,7 +94,7 @@ const ProfileUpdateForm = () => {
 
     try {
       const response = await axios.post(
-        'http://localhost:5050/user/updateprofile',
+        'https://popzup.in/user/updateprofile',
         profile,
         {
           headers: {

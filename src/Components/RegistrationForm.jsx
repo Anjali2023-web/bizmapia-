@@ -32,9 +32,10 @@ const RegistrationForm = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5050/popzup/user/register",
+        "https://popzup.in/popzup/user/register",
         formData,
-        {
+        { 
+          withCredentials: true,
           headers: {
             "Content-Type": "application/json",
           },
@@ -73,7 +74,7 @@ const RegistrationForm = () => {
         >
           <div className="text-left mb-8">
             <h1 className="text-3xl font-bold text-slate-800">
-              Pop<span className="text-red-800">Zup</span>
+              bis<span className="text-red-800">mapia</span>
             </h1>
             <h1 className="text-xl text-orange-900 font-sans">
               Register for a seamless experience

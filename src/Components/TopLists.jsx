@@ -1,8 +1,8 @@
-import React, { useRef, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { FaHeart, FaRegHeart } from 'react-icons/fa'; // Import the regular heart icon for not selected state
-import { AiFillStar, AiOutlineStar } from 'react-icons/ai'; // Ant Design for the rating stars
-
+import React, { useRef, useState } from 'react'; // Import useRef and useState from React
+import { motion } from 'framer-motion'; // Import motion from framer-motion
+import { useInView } from 'framer-motion'; // Import useInView from framer-motion
+import { FaHeart, FaRegHeart } from 'react-icons/fa'; // Import icons
+import { AiFillStar, AiOutlineStar } from 'react-icons/ai'; // 
 const TopLists = () => {
   const cardsData = [
     {

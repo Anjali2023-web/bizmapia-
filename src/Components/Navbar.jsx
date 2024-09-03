@@ -1,7 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import styled from 'styled-components';
+import logo from './bizmapia-logo.png';
+ // Adjust the path as necessary
 
+// Navbar Component
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef(null);
@@ -38,7 +42,7 @@ const Navbar = () => {
               whileTap={{ scale: 0.9 }}
               className="text-xl sm:text-2xl font-bold"
             >
-              Popz<span className='text-red-500 font-thin'>Up</span>
+              <img src={logo} alt="Bizmapia Logo" className="h-10" /> {/* Use the logo image here */}
             </motion.div>
           </Link>
 
@@ -65,16 +69,38 @@ const Navbar = () => {
             </motion.button>
           </div>
 
-          <div className="hidden md:block">
+          <div className="hidden md:flex space-x-4">
             <Link to="/register">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-red-500 text-white px-4 sm:px-6 py-2 rounded-md text-sm sm:text-base font-semibold 
-                transition duration-300 ease-in-out hover:bg-red-600 focus:outline-none 
-                focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
+                className="bg-blue-500 text-white px-4 py-2 rounded-md text-sm font-semibold 
+                transition duration-300 ease-in-out hover:bg-blue-600 focus:outline-none 
+                focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
               >
-                Business Login
+                List Your Business
+              </motion.button>
+            </Link>
+            <Link to="/register">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-green-500 text-white px-4 py-2 rounded-md text-sm font-semibold 
+                transition duration-300 ease-in-out hover:bg-green-600 focus:outline-none 
+                focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
+              >
+                Post a Free Ad
+              </motion.button>
+            </Link>
+            <Link to="/register">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-gray-500 text-white px-4 py-2 rounded-md text-sm font-semibold 
+                transition duration-300 ease-in-out hover:bg-gray-600 focus:outline-none 
+                focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
+              >
+                Sign Up / Sign In
               </motion.button>
             </Link>
           </div>
@@ -91,16 +117,38 @@ const Navbar = () => {
             transition={{ duration: 0.3 }}
             className="md:hidden bg-gray-800 overflow-hidden"
           >
-            <div className="px-4 py-4">
+            <div className="px-4 py-4 sticky top-0 bg-gray-800 z-10">
               <Link to="/register" onClick={() => setIsOpen(false)}>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-full bg-red-500 text-white px-6 py-3 rounded-md text-sm font-semibold 
-                  transition duration-300 ease-in-out hover:bg-red-600 focus:outline-none 
-                  focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
+                  className="w-full max-w-xs mx-auto bg-blue-500 text-white px-4 py-2 rounded-md text-sm font-semibold 
+                  transition duration-300 ease-in-out hover:bg-blue-600 focus:outline-none 
+                  focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
                 >
-                  Business Login
+                  List Your Business
+                </motion.button>
+              </Link>
+              <Link to="/register" onClick={() => setIsOpen(false)}>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="w-full max-w-xs mx-auto bg-green-500 text-white px-4 py-2 rounded-md text-sm font-semibold 
+                  transition duration-300 ease-in-out hover:bg-green-600 focus:outline-none 
+                  focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
+                >
+                  Post a Free Ad
+                </motion.button>
+              </Link>
+              <Link to="/register" onClick={() => setIsOpen(false)}>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="w-full max-w-xs mx-auto bg-gray-500 text-white px-4 py-2 rounded-md text-sm font-semibold 
+                  transition duration-300 ease-in-out hover:bg-gray-600 focus:outline-none 
+                  focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
+                >
+                  Sign Up / Sign In
                 </motion.button>
               </Link>
             </div>

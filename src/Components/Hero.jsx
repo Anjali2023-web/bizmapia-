@@ -1,12 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import 'tailwindcss/tailwind.css';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaSearch, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { FaSearch, FaChevronLeft, FaChevronRight, FaMicrophone } from 'react-icons/fa';
+import LocationSearchBar from './LocationSearchBar'; // Import the LocationSearchBar component
 
 const App = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [currentSuggestionIndex, setCurrentSuggestionIndex] = useState(0);
+  const suggestions = [
+    "Search in Thodupuzha...",
+    "Search the Business...",
+    "Search for Restaurants near me...",
+    "Search for Taxi Services...",
+    "Search for Real Estate Agents...",
+    "Search for Spa and Salons..."
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSuggestionIndex(prevIndex => (prevIndex + 1) % suggestions.length);
+    }, 3000); // Change every 3 seconds
+
+    return () => clearInterval(interval); // Cleanup on unmount
+  }, [suggestions.length]);
 
   return (
     <div className="flex flex-col items-center p-8 bg-gradient-to-br from-slate-100 via-gray-100 to-black-100 min-h-screen">
@@ -16,27 +34,44 @@ const App = () => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
-      Ideas Ignited
+        Ideas Ignited
       </motion.h1>
-      
-      <motion.div
-        className="w-full max-w-lg mb-10"
-        initial={{ y: -50, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-      >
-        <div className="relative">
-          <input
-            type="text"
-            placeholder="Search our collection..."
-            className="w-full p-4 pl-12 border-2 border-purple-300 rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition duration-300 bg-white text-lg"
-          />
-          <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-purple-400 text-xl" />
+
+      {/* Search Bars Side by Side */}
+      <div className="flex space-x-4 w-full max-w-4xl">
+        {/* LocationSearchBar */}
+        <LocationSearchBar placeholder="Search for places, landmarks..." />
+
+        {/* Service Search Bar */}
+        <div className="relative flex-grow bg-white rounded-full shadow-md border border-gray-300">
+          <div className="relative">
+            <input
+              type="text"
+              placeholder=""
+              className="w-full p-4 pl-12 pr-16 bg-transparent border-none text-sm text-gray-700 placeholder-gray-500 rounded-full focus:outline-none"
+              readOnly
+            />
+            <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-600 text-lg" />
+            <FaMicrophone className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-600 text-lg cursor-pointer hover:text-blue-600 transition duration-300" />
+          </div>
+          <AnimatePresence>
+            <motion.div
+              className="absolute inset-0 flex items-center justify-start px-12"
+              key={currentSuggestionIndex}
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.5 }}
+            >
+              <p className="text-lg">{suggestions[currentSuggestionIndex]}</p>
+            </motion.div>
+          </AnimatePresence>
         </div>
-      </motion.div>
-      
+      </div>
+
+      {/* Carousel Section */}
       <motion.div
-        className="w-full max-w-6xl"
+        className="w-full max-w-6xl mt-10"
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.4, duration: 0.8 }}
@@ -53,14 +88,24 @@ const App = () => {
           onChange={(index) => setActiveIndex(index)}
           renderArrowPrev={(onClickHandler, hasPrev, label) =>
             hasPrev && (
-              <button type="button" onClick={onClickHandler} title={label} className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 bg-white bg-opacity-5 hover:bg-opacity-100 text-purple-600 p-3 rounded-full transition duration-300 shadow-md">
+              <button
+                type="button"
+                onClick={onClickHandler}
+                title={label}
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 bg-white bg-opacity-5 hover:bg-opacity-100 text-purple-600 p-3 rounded-full transition duration-300 shadow-md"
+              >
                 <FaChevronLeft className="text-2xl" />
               </button>
             )
           }
           renderArrowNext={(onClickHandler, hasNext, label) =>
             hasNext && (
-              <button type="button" onClick={onClickHandler} title={label} className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 bg-white bg-opacity-5 hover:bg-opacity-100 text-purple-600 p-3 rounded-full transition duration-300 shadow-md">
+              <button
+                type="button"
+                onClick={onClickHandler}
+                title={label}
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 bg-white bg-opacity-5 hover:bg-opacity-100 text-purple-600 p-3 rounded-full transition duration-300 shadow-md"
+              >
                 <FaChevronRight className="text-2xl" />
               </button>
             )
@@ -71,7 +116,7 @@ const App = () => {
               <img
                 src={item.imageSrc}
                 alt={item.title}
-                className="object-cover w-full h-[600px]"
+                className="object-cover w-full h-[400px]" 
               />
               <AnimatePresence>
                 {activeIndex === index && (
@@ -98,7 +143,7 @@ const App = () => {
           ))}
         </Carousel>
       </motion.div>
-      
+
       <motion.div
         className="mt-10 text-center"
         initial={{ opacity: 0 }}

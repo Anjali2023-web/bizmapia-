@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const Logout = () => {
   const [showModal, setShowModal] = useState(false);
 
+  useEffect(() => {
+    setShowModal(true); // Automatically show the modal when the component mounts
+  }, []);
+
   const handleLogout = () => {
-    // Logic to handle logout, e.g., redirect to logout URL or call logout API
     alert('Logged out!');
     setShowModal(false);
   };
 
   return (
     <div>
-      <button onClick={() => setShowModal(true)} className="logout-button">Logout</button>
-
       {showModal && (
         <div className="modal">
           <div className="modal-content">
@@ -24,24 +25,6 @@ const Logout = () => {
       )}
 
       <style jsx>{`
-        .logout-button {
-          padding: 12px 24px;
-          margin: 5px;
-          border: none;
-          border-radius: 5px;
-          font-size: 16px;
-          cursor: pointer;
-          transition: background-color 0.3s ease, transform 0.3s ease;
-          background-color: #007bff;
-          color: white;
-        }
-
-        .logout-button:hover {
-          background-color: #0056b3;
-          color: #fff;
-          transform: scale(1.05);
-        }
-
         .modal {
           display: flex;
           position: fixed;
@@ -51,14 +34,14 @@ const Logout = () => {
           width: 100%;
           height: 100%;
           overflow: auto;
-          background-color: rgba(0, 0, 0, 0.5);
+          background-color: rgba(0, 0, 0, 0.7);
           justify-content: center;
           align-items: center;
           animation: fadeIn 0.3s ease;
         }
 
         .modal-content {
-          background: linear-gradient(135deg, #f0f0f0, #d9d9d9);
+          background: linear-gradient(135deg, #f5f5f5, #ddd);
           border-radius: 10px;
           padding: 30px;
           border: 1px solid #ccc;
@@ -79,7 +62,7 @@ const Logout = () => {
           padding: 10px 20px;
           border: none;
           border-radius: 5px;
-          background-color: #28a745;
+          background-color: #2c3e50;
           color: white;
           cursor: pointer;
           font-size: 16px;
@@ -88,7 +71,7 @@ const Logout = () => {
         }
 
         .yes-button:hover {
-          background-color: #218838;
+          background-color: #34495e;
           transform: scale(1.05);
         }
 
@@ -96,7 +79,7 @@ const Logout = () => {
           padding: 10px 20px;
           border: none;
           border-radius: 5px;
-          background-color: #dc3545;
+          background-color: #c0392b;
           color: white;
           cursor: pointer;
           font-size: 16px;
@@ -105,7 +88,7 @@ const Logout = () => {
         }
 
         .no-button:hover {
-          background-color: #c82333;
+          background-color: #e74c3c;
           transform: scale(1.05);
         }
 
