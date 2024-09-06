@@ -18,6 +18,8 @@ import Offerss from './Components/Offerss';
 import AddnewListing from'./Components/AddnewLIsting';
 import TopCatagories from './Components/TopCatagories';
 
+
+
 function App() {
   const handleFloatingButtonClick = () => {
     console.log('Floating button clicked!');
@@ -25,6 +27,7 @@ function App() {
 
   return (
     <Routes>
+      
       <Route path="/" element={<HomePage handleFloatingButtonClick={handleFloatingButtonClick} />} />
       <Route path="/register" element={<RegistrationForm />} />
       <Route path="/login" element={<LoginForm />} />
@@ -43,6 +46,7 @@ function App() {
       <Route path="/offerss" element={<Offerss />} />
       <Route path="/addlist" element={<AddnewListing />} />
       <Route path="/cat" element={<TopCatagories />} />
+    
     </Routes>
   );
 }

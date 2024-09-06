@@ -32,6 +32,18 @@ const CategoriesContainer = styled.div`
   gap: 20px;
   padding: 20px;
   background-color: #f9f9f9;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  }
 `;
 
 const CategoryItem = styled(motion.div)`
@@ -51,11 +63,27 @@ const CategoryItem = styled(motion.div)`
 const IconContainer = styled.div`
   font-size: 40px;
   margin-bottom: 10px;
+
+  @media (max-width: 768px) {
+    font-size: 30px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 24px;
+  }
 `;
 
 const CategoryName = styled.div`
   font-size: 14px;
   font-weight: bold;
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 10px;
+  }
 `;
 
 const ButtonContainer = styled.div`

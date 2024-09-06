@@ -34,9 +34,7 @@ const LoginForm = ({ toggleForm }) => {
           },
         }
       );
-console.log(response);
-
-
+      console.log(response);
 
       if (response.status === 200) {
         localStorage.setItem("token", response.data?.accessToken);
@@ -65,13 +63,16 @@ console.log(response);
           className="w-full h-full object-cover"
         />
       </div>
-      <div className="w-full lg:w-1/2 flex justify-center items-center p-8">
-        <form onSubmit={handleSubmit} className="w-full max-w-lg bg-white p-8 rounded-lg">
-          <div className="text-left mb-8">
-            <h1 className="text-3xl font-bold text-slate-800">
+      <div className="w-full lg:w-1/2 flex justify-center items-center p-4 sm:p-8">
+        <form
+          onSubmit={handleSubmit}
+          className="w-full max-w-lg bg-white p-6 sm:p-8 rounded-lg shadow-lg"
+        >
+          <div className="text-left mb-6 sm:mb-8">
+            <h1 className="text-2xl sm:text-3xl font-bold text-slate-800">
               bis<span className="text-red-800">mapia</span>
             </h1>
-            <h1 className="text-xl text-orange-900 font-sans">
+            <h1 className="text-lg sm:text-xl text-orange-900 font-sans">
               Login for a seamless experience
             </h1>
           </div>
@@ -107,7 +108,9 @@ console.log(response);
               />
               <button
                 type="button"
-                onClick={() => setShowPassword((prevShowPassword) => !prevShowPassword)}
+                onClick={() =>
+                  setShowPassword((prevShowPassword) => !prevShowPassword)
+                }
                 className="absolute inset-y-0 right-0 px-3 py-2 text-gray-600"
               >
                 {showPassword ? <FaEyeSlash /> : <FaEye />}

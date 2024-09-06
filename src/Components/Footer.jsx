@@ -13,37 +13,39 @@ const Footer = () => {
   return (
     <footer className="bg-gradient-to-r from-gray-800 to-gray-900 text-white py-12">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <motion.div 
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-2xl font-bold mb-4 text-blue-300">About Us</h2>
+            <h2 className="text-xl md:text-2xl font-bold mb-4 text-blue-300">About Us</h2>
             <p className="text-gray-300 leading-relaxed">
               BisMapia is a leading local search engine, connecting businesses with their target audience. Our mission is to empower local businesses and provide the best quality service and customer satisfaction.
             </p>
           </motion.div>
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <h2 className="text-2xl font-bold mb-4 text-blue-300">Quick Links</h2>
+            <h2 className="text-xl md:text-2xl font-bold mb-4 text-blue-300">Quick Links</h2>
             <ul className="space-y-2">
               {['Home', 'Services', 'Contact', 'About'].map((link, index) => (
                 <motion.li key={index} whileHover={{ x: 5 }} transition={{ type: 'spring', stiffness: 300 }}>
-                  <a href="#" className="text-gray-300 hover:text-white transition duration-300">{link}</a>
+                  <a href="#" className="text-gray-300 hover:text-white transition duration-300">
+                    {link}
+                  </a>
                 </motion.li>
               ))}
             </ul>
           </motion.div>
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            <h2 className="text-2xl font-bold mb-4 text-blue-300">Contact Us</h2>
+            <h2 className="text-xl md:text-2xl font-bold mb-4 text-blue-300">Contact Us</h2>
             <p className="text-gray-300 mb-2">Email: info@popzup.in</p>
             <p className="text-gray-300 mb-2">Phone: +91 8848 652 609</p>
             <p className="text-gray-300">
@@ -53,7 +55,7 @@ const Footer = () => {
           </motion.div>
         </div>
         <div className="mt-12 pt-8 border-t border-gray-700">
-          <div className="flex justify-center space-x-6 mb-4">
+          <div className="flex justify-center space-x-4 lg:space-x-6 mb-4">
             {socialIcons.map((social, index) => (
               <motion.a
                 key={index}
@@ -63,14 +65,14 @@ const Footer = () => {
                 whileTap={{ scale: 0.9 }}
               >
                 <span className="sr-only">{social.name}</span>
-                <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <svg className="h-5 w-5 md:h-6 md:w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path d={social.icon} />
                 </svg>
               </motion.a>
             ))}
           </div>
-          <motion.p 
-            className="text-center text-gray-400"
+          <motion.p
+            className="text-center text-gray-400 text-sm md:text-base"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.6 }}
@@ -81,6 +83,6 @@ const Footer = () => {
       </div>
     </footer>
   );
-}
+};
 
 export default Footer;

@@ -1,109 +1,123 @@
-import React, { useRef, useState } from 'react'; // Import useRef and useState from React
-import { motion } from 'framer-motion'; // Import motion from framer-motion
-import { useInView } from 'framer-motion'; // Import useInView from framer-motion
-import { FaHeart, FaRegHeart } from 'react-icons/fa'; // Import icons
-import { AiFillStar, AiOutlineStar } from 'react-icons/ai'; // 
+import React, { useRef, useState } from 'react';
+import { motion, useInView } from 'framer-motion';
+import { AiFillStar, AiOutlineStar, AiOutlineHeart, AiFillHeart } from 'react-icons/ai'; // Import filled heart icon
+import Navbar from './Navbar'; // Ensure this path is correct
+
 const TopLists = () => {
   const cardsData = [
     {
-      title: 'Top List 1',
-      description: 'This is the description for card 1.',
+      title: 'Elegant Jewelry',
+      description: 'Explore our exclusive collection of elegant jewelry designed to make you stand out.',
       image: 'https://retailjewellerindia.com/wp-content/uploads/RJIndia-Website-Cover-image-1200-X-675px-Jos-Alukka-1808-2048x1152.jpg',
       rating: 4,
       location: 'New York, USA',
-      productOwner: 'John Doe'
     },
     {
-      title: 'Top List 2',
-      description: 'This is the description for card 2.',
+      title: 'Luxurious Watches',
+      description: 'Discover the finest watches that combine luxury and precision.',
       image: 'https://www.khazanajewellery.com/wp-content/uploads/2016/06/HP_Banner_Slider-3.jpg',
       rating: 5,
       location: 'Los Angeles, USA',
-      productOwner: 'Jane Smith'
     },
     {
-      title: 'Top List 3',
-      description: 'This is the description for card 3.',
+      title: 'Modern Art Pieces',
+      description: 'Add a touch of modern art to your space with our curated selection.',
       image: 'https://www.spyne.ai/blogs/wp-content/uploads/2023/02/Untitled-1-copy-1-1-1024x576.webp',
       rating: 3,
       location: 'Chicago, USA',
-      productOwner: 'Alice Johnson'
     },
     {
-      title: 'Top List 4',
-      description: 'This is the description for card 4.',
+      title: 'Luxury Cars',
+      description: 'Experience the thrill of driving the latest luxury cars.',
       image: 'https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/b4322b71800111.5bd181970c91f.jpg',
       rating: 4,
       location: 'Houston, USA',
-      productOwner: 'Bob Brown'
     },
     {
-      title: 'Top List 5',
-      description: 'This is the description for card 5.',
+      title: 'Premium Beverages',
+      description: 'Savor the taste of our premium beverages crafted to perfection.',
       image: 'https://gumlet-images.assettype.com/afaqs%2F2023-12%2F85dda5bf-0bf7-43af-a30f-7ae3a7b2dd8f%2FBisleri__DrinkItUp_Deepika_Padukone.png?rect=79%2C0%2C1778%2C1000&w=1200&auto=format%2Ccompress&ogImage=true',
       rating: 2,
       location: 'Miami, USA',
-      productOwner: 'Charlie Davis'
     },
     {
-      title: 'Top List 6',
-      description: 'This is the description for card 6.',
+      title: 'Designer Clothing',
+      description: 'Upgrade your wardrobe with our collection of designer clothing.',
       image: 'https://cdn.dribbble.com/userupload/8836066/file/original-2bfe4732960eb8783a6d1561f5d7703f.jpg?resize=1024x1024',
       rating: 5,
       location: 'San Francisco, USA',
-      productOwner: 'Eve Miller'
     },
   ];
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:m-20">
-        {cardsData.map((card, index) => (
-          <Card
-            key={index}
-            title={card.title}
-            description={card.description}
-            image={card.image}
-            rating={card.rating}
-            location={card.location}
-            productOwner={card.productOwner}
-          />
-        ))}
+    <>
+      <Navbar />
+      <div className="container mx-auto px-4 py-8 mt-12">
+        <div className="text-center mb-8">
+          <motion.h1
+            className="text-3xl sm:text-4xl font-sans font-bold text-gray-900"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.2 }}
+          >
+            Trending In Your Area
+          </motion.h1>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {cardsData.map((card, index) => (
+            <Card
+              key={index}
+              title={card.title}
+              description={card.description}
+              image={card.image}
+              rating={card.rating}
+              location={card.location}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
-const Card = ({ title, description, image, rating, location, productOwner }) => {
+const Card = ({ title, description, image, rating, location }) => {
+  const [isInWishlist, setIsInWishlist] = useState(false); // State for wishlist
   const ref = useRef(null);
   const inView = useInView(ref, { once: true });
-  const [isWishlisted, setIsWishlisted] = useState(false); // State to handle wish list toggle
 
   return (
     <motion.div
       ref={ref}
-      className="bg-white/10 shadow-md rounded-lg overflow-hidden relative"
+      className="shadow-lg rounded-lg overflow-hidden relative transform transition-transform hover:scale-105"
       initial={{ opacity: 0, y: 50 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.5 }}
     >
       <img src={image} alt={title} className="w-full h-48 object-cover" />
-      <div
-        className="absolute top-2 right-2 cursor-pointer"
-        onClick={() => setIsWishlisted(!isWishlisted)}
+      <button
+        className="absolute top-4 right-4 bg-white p-2 rounded-full shadow-md hover:bg-gray-100 transition"
+        onClick={() => setIsInWishlist(!isInWishlist)}
       >
-        {isWishlisted ? <FaHeart className="text-red-500" /> : <FaRegHeart className="text-gray-500" />}
-      </div>
-      <div className="p-4">
-        <h2 className="text-xl font-bold mb-2 text-gray-900">{title}</h2>
-        <p className="text-gray-900">{description}</p>
-        <div className="flex items-center my-2">
+        {isInWishlist ? (
+          <AiFillHeart className="text-red-500" />
+        ) : (
+          <AiOutlineHeart className="text-gray-500" />
+        )}
+      </button>
+      <div className="p-4 bg-white border-t border-gray-200">
+        <h2 className="text-lg font-semibold text-gray-800 mb-2">{title}</h2>
+        <p className="text-sm text-gray-600 mb-2">{description}</p>
+        <div className="flex items-center mb-2">
           {Array.from({ length: 5 }, (_, i) => (
-            i < rating ? <AiFillStar key={i} className="text-yellow-500" /> : <AiOutlineStar key={i} className="text-yellow-500" />
+            i < rating ? (
+              <AiFillStar key={i} className="text-yellow-400" />
+            ) : (
+              <AiOutlineStar key={i} className="text-yellow-400" />
+            )
           ))}
         </div>
-        <p className="text-gray-600">{location}</p>
-        <p className="text-gray-600">Product Owner: {productOwner}</p>
+        <p className="text-sm text-gray-500">{location}</p>
       </div>
     </motion.div>
   );

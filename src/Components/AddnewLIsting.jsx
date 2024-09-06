@@ -55,17 +55,18 @@ function ListingForm() {
     data.append("image", formData.image);
 
     try {
-      const response = await axios.post("/listings", data, {
+      const response = await axios.post("/business-listings", data, {
         withCredentials: true,
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${localStorage.getItem("token")}`, // Assuming the token is stored in localStorage
         },
       });
 
-      console.log("Listing created successfully:", response.data);
+      console.log("Business listing created successfully:", response.data);
       // Handle success (e.g., redirect, show success message, etc.)
     } catch (err) {
-      console.error("Error creating listing:", err);
+      console.error("Error creating business listing:", err);
       setError("Failed to create listing. Please try again.");
     } finally {
       setLoading(false);

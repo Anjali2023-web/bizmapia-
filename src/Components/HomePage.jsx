@@ -7,7 +7,6 @@ import Navbar from './Navbar';
 import Hero from './Hero';
 import TopCatagories from './TopCatagories';
 import ConcernedLists from './ConcernedAds';
-import AdsList from './AdsList';
 import TopLists from './TopLists';
 import PopzupInfo from './About';
 import Footer from './Footer';
@@ -114,10 +113,13 @@ const HomePage = () => {
   return (
     <div className="bg-gradient-to-r from-slate-100 to-sky-100">
       <Navbar />
-      <Hero />
-      <TopCatagories />
+      
+      {/* Add margin between Navbar and Hero section */}
+      <div className="mt-8"></div> {/* This will add 8px of margin */}
+
+      <Hero  /> <div className="mt-8"></div>{/* Adjust spacing here */}
+      <TopCatagories /><div className="mt-8"></div>
       <ConcernedLists />
-      <AdsList />
       <TopLists />
       <PopzupInfo />
       <Footer />

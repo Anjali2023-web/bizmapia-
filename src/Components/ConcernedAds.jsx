@@ -1,89 +1,77 @@
-import React, { useRef, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { FaHeart, FaRegHeart } from 'react-icons/fa'; // Import the regular heart icon for not selected state
-import { AiFillStar, AiOutlineStar } from 'react-icons/ai'; // Ant Design for the rating stars
+import React from 'react';
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
 
-const TopLists = () => {
-  const cardsData = [
-    {
-      title: 'Top List 1',
-      description: 'This is the description for card 1.',
-      image: 'https://retailjewellerindia.com/wp-content/uploads/RJIndia-Website-Cover-image-1200-X-675px-Jos-Alukka-1808-2048x1152.jpg',
-      rating: 4,
-      location: 'New York, USA',
-      productOwner: 'John Doe'
-    },
-    {
-      title: 'Top List 2',
-      description: 'This is the description for card 2.',
-      image: 'https://www.khazanajewellery.com/wp-content/uploads/2016/06/HP_Banner_Slider-3.jpg',
-      rating: 5,
-      location: 'Los Angeles, USA',
-      productOwner: 'Jane Smith'
-    },
-    {
-      title: 'Top List 3',
-      description: 'This is the description for card 3.',
-      image: 'https://www.spyne.ai/blogs/wp-content/uploads/2023/02/Untitled-1-copy-1-1-1024x576.webp',
-      rating: 3,
-      location: 'Chicago, USA',
-      productOwner: 'Alice Johnson'
-    },
+const Featured = () => {
+  const carouselItems = [
     
+    {
+      imageSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbe6GszzF_C5KWI9qZ1OEHmOXXHFiXXznUJg&s",
+      title: "Ad Poster 4",
+    },
+    {
+      imageSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0LIdezq9uv79hgzWJy_PbMakCOHtltVHyTA&s",
+      title: "Ayurvedic Treatments",
+    },
+    {
+      imageSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSU63PrMLa4crt3F2SbfxtrzG-7IiUMiUa9lQ&s",
+      title: "Malayali Restaurent",
+    },
+    {
+      imageSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR24Anlwt5pAb_NTdHweXLCjWGecoyvAVQpXQ&s",
+      title: "Pittapillil",
+    },
+    {
+      imageSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1wV3yJi4wWkokv5Db5YyAJLYBQTk_whjgNg&s",
+      title: "Trends",
+    },
+    {
+      imageSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT397QRTbKO3YEDwslCFzGEYGxDVUGASZRW3w&s",
+      title: "M4Men",
+    },
+    {
+      imageSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZvfqgJu3x88Rd9yYj_iLbhnA9oTrqkuExoQ&s",
+      title: "Royal",
+    },
   ];
 
+  const responsive = {
+    superLargeDesktop: {
+      breakpoint: { max: 4000, min: 3000 },
+      items: 5
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 3
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1
+    }
+  };
+
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:m-20">
-        {cardsData.map((card, index) => (
-          <Card
-            key={index}
-            title={card.title}
-            description={card.description}
-            image={card.image}
-            rating={card.rating}
-            location={card.location}
-            productOwner={card.productOwner}
-          />
+    <div className="w-full mt-10">
+      <Carousel responsive={responsive} infinite={true} autoPlay={true} autoPlaySpeed={3000} keyBoardControl={true} customTransition="all 1s" transitionDuration={500}>
+        {carouselItems.map((item, index) => (
+          <div key={index} className="relative h-full w-full p-2">
+            <img
+              src={item.imageSrc}
+              alt={item.title}
+              className="object-cover w-full h-[300px] rounded-lg shadow-lg"
+            />
+            <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black via-black/70 to-transparent p-4 text-white">
+              <h2 className="text-xl font-bold">{item.title}</h2>
+            </div>
+          </div>
         ))}
-      </div>
+      </Carousel>
     </div>
   );
 };
 
-const Card = ({ title, description, image, rating, location, productOwner }) => {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true });
-  const [isWishlisted, setIsWishlisted] = useState(false); // State to handle wish list toggle
-
-  return (
-    <motion.div
-      ref={ref}
-      className="bg-white/10 shadow-md rounded-lg overflow-hidden relative"
-      initial={{ opacity: 0, y: 50 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5 }}
-    >
-      <img src={image} alt={title} className="w-full h-48 object-cover" />
-      <div
-        className="absolute top-2 right-2 cursor-pointer"
-        onClick={() => setIsWishlisted(!isWishlisted)}
-      >
-        {isWishlisted ? <FaHeart className="text-red-500" /> : <FaRegHeart className="text-gray-500" />}
-      </div>
-      <div className="p-4">
-        <h2 className="text-xl font-bold mb-2 text-gray-900">{title}</h2>
-        <p className="text-gray-900">{description}</p>
-        <div className="flex items-center my-2">
-          {Array.from({ length: 5 }, (_, i) => (
-            i < rating ? <AiFillStar key={i} className="text-yellow-500" /> : <AiOutlineStar key={i} className="text-yellow-500" />
-          ))}
-        </div>
-        <p className="text-gray-600">{location}</p>
-        <p className="text-gray-600">Product Owner: {productOwner}</p>
-      </div>
-    </motion.div>
-  );
-};
-
-export default TopLists;
+export default Featured;

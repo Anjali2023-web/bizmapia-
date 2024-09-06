@@ -29,26 +29,31 @@ const PopzupInfo = () => {
             variants={containerVariants}
             initial="hidden"
             animate={inView ? "visible" : "hidden"}
-            className="bg-gradient-to-br from-blue-50 to-indigo-100 shadow-lg rounded-xl p-8 lg:flex lg:items-center lg:justify-between m-8 overflow-hidden"
+            className="bg-gradient-to-br from-blue-50 to-indigo-100 shadow-lg rounded-xl p-8 sm:p-6 md:p-8 lg:p-12 xl:p-16 
+                        flex flex-col lg:flex-row items-center justify-between m-4 md:m-6 lg:m-8 xl:m-12"
         >
             <div className="lg:w-2/3 lg:pr-12">
-                <h2 className="text-4xl font-extrabold mb-6 text-slate-800 leading-tight">BisMapia: Elevate Your Local Business Presence</h2>
-                <p className="text-gray-700 mb-6 text-xl leading-relaxed">
-                    Welcome to BisMapia – your gateway to unparalleled local advertising. Harness the power of strategic promotion to connect with your target audience and catapult your business to new heights. As a premier local search engine, Popzup offers a robust platform to engage potential customers and amplify your brand's visibility.
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold mb-6 text-slate-800 leading-tight">
+                    bismapia: Elevate Your Local Business Presence
+                </h2>
+                <p className="text-gray-700 mb-6 text-base sm:text-lg md:text-xl leading-relaxed">
+                    Welcome to bismapia – your gateway to unparalleled local advertising. Harness the power of strategic promotion to connect with your target audience and catapult your business to new heights. As a premier local search engine, bizmapia offers a robust platform to engage potential customers and amplify your brand's visibility.
                 </p>
 
                 <motion.button 
                     onClick={toggleDetails}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="bg-slate-600 text-white py-3 px-6 rounded-full text-lg font-semibold hover:bg-slate-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-opacity-50"
+                    className="bg-slate-600 text-white py-2 sm:py-3 px-4 sm:px-6 rounded-full text-sm sm:text-lg font-semibold 
+                               hover:bg-slate-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 
+                               focus:ring-slate-500 focus:ring-opacity-50"
                 >
-                    {showDetails ? "Hide Details" : "Why Choose BisMapia?"}
+                    {showDetails ? "Hide Details" : "Why Choose bismapia?"}
                 </motion.button>
                 
                 {showDetails && (
                     <motion.ul 
-                        className="mt-6 space-y-4 text-lg text-gray-700"
+                        className="mt-6 space-y-2 sm:space-y-4 text-sm sm:text-lg text-gray-700"
                         initial="hidden"
                         animate="visible"
                         variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
@@ -64,7 +69,7 @@ const PopzupInfo = () => {
                                 variants={listItemVariants}
                                 className="flex items-start"
                             >
-                                <svg className="w-6 h-6 text-slate-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <svg className="w-4 sm:w-5 md:w-6 h-4 sm:h-5 md:h-6 text-slate-500 mr-1 sm:mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
                                 <span>{item}</span>

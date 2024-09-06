@@ -32,7 +32,7 @@ const RegistrationForm = () => {
 
     try {
       const response = await axios.post(
-        "https://popzup.in/popzup/user/register",
+        "https://bizmapia.com/popzup/user/register",
         formData,
         { 
           withCredentials: true,
@@ -41,25 +41,21 @@ const RegistrationForm = () => {
           },
         }
       );
-      console.log("====================================");
-      console.log(response?.data);
-      console.log("====================================");
+
       if (response.status === 200 && response?.data?.status === true) {
-        console.log("Registration successful", response.data);
         alert("Registration successful");
-        navigate("/login"); // Redirect to the success page
+        navigate("/login");
       } else {
-        console.error("Registration failed", response);
         alert("Registration failed");
       }
     } catch (error) {
-      console.error("An error occurred:", error);
       alert("An error occurred");
     }
   };
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-white">
+      {/* For larger screens */}
       <div className="hidden lg:flex lg:w-1/2 h-full">
         <img
           src="https://img.freepik.com/free-vector/flat-design-family-tree-silhouette_23-2150410119.jpg?t=st=1721142642~exp=1721146242~hmac=f1ea39c126026dcaf7aa850274a6e7d42a51c49855e57553da961ac87f32efbc&w=740"
@@ -67,11 +63,9 @@ const RegistrationForm = () => {
           className="w-full h-full object-cover"
         />
       </div>
-      <div className="w-full lg:w-1/2 flex h-full justify-center items-center px-16">
-        <form
-          onSubmit={handleSubmit}
-          className="w-full max-w-lg bg-white p-8 rounded-lg"
-        >
+      {/* Form Section with responsive classes */}
+      <div className="w-full lg:w-1/2 flex justify-center items-center p-4 sm:p-8 md:px-12">
+        <form onSubmit={handleSubmit} className="w-full max-w-lg bg-white p-6 sm:p-8 rounded-lg shadow-lg">
           <div className="text-left mb-8">
             <h1 className="text-3xl font-bold text-slate-800">
               bis<span className="text-red-800">mapia</span>
