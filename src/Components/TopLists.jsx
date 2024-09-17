@@ -1,49 +1,55 @@
 import React, { useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { AiFillStar, AiOutlineStar, AiOutlineHeart, AiFillHeart } from 'react-icons/ai'; // Import filled heart icon
+import { AiFillStar, AiOutlineStar, AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import Navbar from './Navbar'; // Ensure this path is correct
+import algaImage from '../assets/alga.jpeg.jpg';
+import DreamImage from '../assets/Dream.jpg'; 
+import jaicoImage from '../assets/Jaico.jpeg.jpg';// Import the image directly
+import kandirikalImage from '../assets/Kandirikal.jpeg.jpg';
+import mattechImage from '../assets/Mattech.jpeg.jpg';
+import swissImage from '../assets/Swiss360.jpeg.jpg';
+
 
 const TopLists = () => {
   const cardsData = [
     {
       title: 'Elegant Jewelry',
       description: 'Explore our exclusive collection of elegant jewelry designed to make you stand out.',
-      image: 'https://retailjewellerindia.com/wp-content/uploads/RJIndia-Website-Cover-image-1200-X-675px-Jos-Alukka-1808-2048x1152.jpg',
+      image: algaImage, // Reference the imported image here
       rating: 4,
       location: 'New York, USA',
     },
     {
       title: 'Luxurious Watches',
       description: 'Discover the finest watches that combine luxury and precision.',
-      image: 'https://www.khazanajewellery.com/wp-content/uploads/2016/06/HP_Banner_Slider-3.jpg',
+      image: DreamImage,
       rating: 5,
       location: 'Los Angeles, USA',
     },
     {
       title: 'Modern Art Pieces',
       description: 'Add a touch of modern art to your space with our curated selection.',
-      image: 'https://www.spyne.ai/blogs/wp-content/uploads/2023/02/Untitled-1-copy-1-1-1024x576.webp',
+      image:jaicoImage ,
       rating: 3,
       location: 'Chicago, USA',
     },
     {
       title: 'Luxury Cars',
       description: 'Experience the thrill of driving the latest luxury cars.',
-      image: 'https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/b4322b71800111.5bd181970c91f.jpg',
+      image: kandirikalImage,
       rating: 4,
       location: 'Houston, USA',
     },
     {
       title: 'Premium Beverages',
       description: 'Savor the taste of our premium beverages crafted to perfection.',
-      image: 'https://gumlet-images.assettype.com/afaqs%2F2023-12%2F85dda5bf-0bf7-43af-a30f-7ae3a7b2dd8f%2FBisleri__DrinkItUp_Deepika_Padukone.png?rect=79%2C0%2C1778%2C1000&w=1200&auto=format%2Ccompress&ogImage=true',
-      rating: 2,
+      image: mattechImage,
       location: 'Miami, USA',
     },
     {
       title: 'Designer Clothing',
       description: 'Upgrade your wardrobe with our collection of designer clothing.',
-      image: 'https://cdn.dribbble.com/userupload/8836066/file/original-2bfe4732960eb8783a6d1561f5d7703f.jpg?resize=1024x1024',
+      image: swissImage,
       rating: 5,
       location: 'San Francisco, USA',
     },

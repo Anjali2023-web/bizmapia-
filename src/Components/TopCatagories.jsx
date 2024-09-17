@@ -1,138 +1,111 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
 
-// Sample icons
+// Sample categories
 const categories = [
-  { name: 'Restaurants', icon: '🍽️', color: 'bg-orange-200' },
-  { name: 'Hotels', icon: '🏨', color: 'bg-blue-200' },
-  { name: 'Beauty Spa', icon: '💆', color: 'bg-pink-200' },
-  { name: 'Home Decor', icon: '🛋️', color: 'bg-teal-200' },
-  { name: 'Wedding Planning', icon: '👰', color: 'bg-yellow-200' },
-  { name: 'Education', icon: '🎓', color: 'bg-purple-200' },
-  { name: 'Rent & Hire', icon: '🔧', color: 'bg-red-200' },
-  { name: 'Hospitals', icon: '🏥', color: 'bg-blue-200' },
-  { name: 'Contractors', icon: '👷', color: 'bg-yellow-200' },
-  { name: 'Pet Shops', icon: '🐕', color: 'bg-teal-200' },
-  { name: 'PG/Hostels', icon: '🏠', color: 'bg-green-200' },
-  { name: 'Estate Agent', icon: '🏘️', color: 'bg-orange-200' },
-  { name: 'Dentists', icon: '🦷', color: 'bg-purple-200' },
-  { name: 'Gym', icon: '🏋️', color: 'bg-red-200' },
-  { name: 'Consultants', icon: '💼', color: 'bg-blue-200' },
-  { name: 'Event Organisers', icon: '🎉', color: 'bg-yellow-200' },
-  { name: 'Driving Schools', icon: '🚗', color: 'bg-teal-200' },
-  { name: 'Packers & Movers', icon: '🚛', color: 'bg-green-200' },
-  { name: 'Courier Service', icon: '📦', color: 'bg-gray-200' }
+  { name: 'Restaurants', icon: '🍽️' },
+  { name: 'Hotels', icon: '🏨' },
+  { name: 'Beauty Spa', icon: '💆' },
+  { name: 'Home Decor', icon: '🛋️' },
+  { name: 'Wedding Planning', icon: '👰' },
+  { name: 'Education', icon: '🎓' },
+  { name: 'Rent & Hire', icon: '🔧' },
+  { name: 'Hospitals', icon: '🏥' },
+  { name: 'Contractors', icon: '👷' },
+  { name: 'Pet Shops', icon: '🐕' },
+  { name: 'PG/Hostels', icon: '🏠' },
+  { name: 'Estate Agent', icon: '🏘️' },
+  { name: 'Dentists', icon: '🦷' },
+  { name: 'Gym', icon: '🏋️' },
+  { name: 'Consultants', icon: '💼' },
+  { name: 'Event Organisers', icon: '🎉' },
+  { name: 'Driving Schools', icon: '🚗' },
+  { name: 'Packers & Movers', icon: '🚛' },
+  { name: 'Courier Service', icon: '📦' }
 ];
 
 const CategoriesContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px; /* Reduced gap between categories */
   padding: 20px;
-  background-color: #f9f9f9;
-
-  @media (max-width: 1024px) {
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  }
-
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-  }
-
-  @media (max-width: 480px) {
-    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-  }
+  justify-content: center;
 `;
 
 const CategoryItem = styled(motion.div)`
   text-align: center;
-  padding: 10px;
+  padding: 8px; /* Reduced padding */
   background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px; /* Reduced border-radius */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Slightly smaller shadow */
   transition: transform 0.2s ease-in-out;
   cursor: pointer;
-
+  flex: 0 1 6%; /* Reduced width to fit more categories in one line */
+  
   &:hover {
-    transform: translateY(-5px);
+    transform: translateY(-3px); /* Slightly smaller hover effect */
   }
 `;
 
 const IconContainer = styled.div`
-  font-size: 40px;
-  margin-bottom: 10px;
-
-  @media (max-width: 768px) {
-    font-size: 30px;
-  }
-
-  @media (max-width: 480px) {
-    font-size: 24px;
-  }
+  font-size: 24px; /* Reduced icon size */
+  margin-bottom: 5px; /* Reduced margin */
 `;
 
 const CategoryName = styled.div`
-  font-size: 14px;
+  font-size: 10px; /* Reduced font size */
   font-weight: bold;
-
-  @media (max-width: 768px) {
-    font-size: 12px;
-  }
-
-  @media (max-width: 480px) {
-    font-size: 10px;
-  }
 `;
 
 const ButtonContainer = styled.div`
   text-align: center;
-  margin-top: 30px;
+  margin-top: 20px;
 `;
 
-const PopularButton = styled(motion.button)`
-  padding: 10px 20px;
-  font-size: 16px;
+const ToggleButton = styled(motion.button)`
+  padding: 8px 16px; /* Slightly smaller button */
+  font-size: 14px; /* Reduced button font size */
   font-weight: bold;
   color: #fff;
   background-color: #007bff;
   border: none;
-  border-radius: 30px;
+  border-radius: 20px; /* Reduced border-radius */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   transition: background-color 0.3s;
-
+  
   &:hover {
     background-color: #0056b3;
   }
 `;
 
 const Categories = () => {
-  const navigate = useNavigate();
+  const [showMore, setShowMore] = useState(false);
 
-  const handleButtonClick = () => {
-    navigate('/cat');
+  const handleToggle = () => {
+    setShowMore(!showMore);
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 sm:py-16 bg-gray-50">
-      <motion.h2 
-        className="text-3xl sm:text-4xl font-bold text-center mb-8 sm:mb-12 text-gray-900"
+    <div className="container mx-auto px-4 py-8">
+      <motion.h2
+        className="text-2xl font-bold text-center mb-8 text-gray-900"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
         Explore Popular Categories
       </motion.h2>
+      
       <CategoriesContainer>
-        {categories.map((category, index) => (
+        {categories.slice(0, showMore ? categories.length : 13).map((category, index) => (
           <CategoryItem
             key={index}
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
-            whileHover={{ scale: 1.05, boxShadow: "0 4px 8px rgba(0,0,0,0.2)" }}
+            whileHover={{ scale: 1.05, boxShadow: '0 4px 8px rgba(0,0,0,0.2)' }}
             whileTap={{ scale: 0.95 }}
           >
             <IconContainer>{category.icon}</IconContainer>
@@ -140,14 +113,15 @@ const Categories = () => {
           </CategoryItem>
         ))}
       </CategoriesContainer>
+      
       <ButtonContainer>
-        <PopularButton
-          onClick={handleButtonClick}
+        <ToggleButton
+          onClick={handleToggle}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
         >
-          Popular Categories
-        </PopularButton>
+          {showMore ? 'Show Less' : 'Show More'}
+        </ToggleButton>
       </ButtonContainer>
     </div>
   );

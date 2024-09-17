@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styled from 'styled-components';
 import { AiOutlineClose } from 'react-icons/ai'; // Import a close icon
+import flagImage from '../assets/flag.png'; 
 
 import Navbar from './Navbar';
 import Hero from './Hero';
@@ -10,8 +11,9 @@ import ConcernedLists from './ConcernedAds';
 import TopLists from './TopLists';
 import PopzupInfo from './About';
 import Footer from './Footer';
-import CustomTabBar from './CustomTabBar';
+
 import FloatingButton from './FloatingActionButton';
+import Shop from './Shop';
 
 // Styled components for popup
 const Overlay = styled.div`
@@ -29,12 +31,21 @@ const Overlay = styled.div`
 
 const PopupContainer = styled.div`
   background-color: white;
-  padding: 20px;
-  border-radius: 10px;
+  padding: 15px;
+  border-radius: 15px;
   text-align: center;
-  max-width: 500px;
-  width: 100%;
+  width: 90%;
+  max-width: 350px;
   position: relative;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e5e5;
+  background: linear-gradient(135deg, #f0f0f0, #ffffff);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.2);
+  }
 `;
 
 const CloseButton = styled(AiOutlineClose)`
@@ -42,23 +53,29 @@ const CloseButton = styled(AiOutlineClose)`
   top: 10px;
   right: 10px;
   cursor: pointer;
-  font-size: 24px;
+  font-size: 20px;
+  color: #888;
+
+  &:hover {
+    color: #ff3b3b;
+  }
 `;
 
 const InputContainer = styled.div`
   display: flex;
   align-items: center;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 8px;
   overflow: hidden;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  background-color: #f7f7f7;
 `;
 
 const Flag = styled.div`
   padding: 10px;
   display: flex;
   align-items: center;
-  background-color: #f8f8f8;
+  background-color: #fafafa;
 `;
 
 const CountryCode = styled.span`
@@ -68,7 +85,7 @@ const CountryCode = styled.span`
 `;
 
 const PhoneInput = styled.input`
-  padding: 10px;
+  padding: 12px;
   flex-grow: 1;
   border: none;
   outline: none;
@@ -76,18 +93,32 @@ const PhoneInput = styled.input`
 `;
 
 const GetStartedButton = styled.button`
-  padding: 10px 20px;
-  background-color: #4285f4; /* Google blue */
+  padding: 12px 24px;
+  background-color: #1a73e8; /* Google blue */
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 16px;
   font-weight: bold;
+  transition: background-color 0.3s, transform 0.3s;
 
   &:hover {
-    background-color: #3367d6;
+    background-color: #185abc;
+    transform: translateY(-2px);
   }
+
+  &:active {
+    background-color: #174ea0;
+  }
+`;
+
+const Heading = styled.h2`
+  font-size: 20px;
+  font-family: 'Poppins', sans-serif; /* Attractive font */
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
 `;
 
 const HomePage = () => {
@@ -113,17 +144,18 @@ const HomePage = () => {
   return (
     <div className="bg-gradient-to-r from-slate-100 to-sky-100">
       <Navbar />
-      
-      {/* Add margin between Navbar and Hero section */}
-      <div className="mt-8"></div> {/* This will add 8px of margin */}
 
-      <Hero  /> <div className="mt-8"></div>{/* Adjust spacing here */}
-      <TopCatagories /><div className="mt-8"></div>
-      <ConcernedLists />
-      <TopLists />
-      <PopzupInfo />
-      <Footer />
-      <CustomTabBar />
+      {/* Add margin between Navbar and Hero section */}
+      <div className="mt-20"></div> {/* This will add 8px of margin */}
+
+      <ConcernedLists /><div className="mt-8"></div> {/* Concerned Ads first */}
+      <TopCatagories /><div className="mt-8"></div> {/* Categories second */}
+      <Hero /><div className="mt-8"></div> {/* Hero third */}
+      <TopLists /><div className="mt-8"></div> {/* Top Listings fourth */}
+      <Shop /><div className="mt-8"></div> {/* Shop section */}
+      <PopzupInfo /><div className="mt-8"></div> {/* About fifth */}
+      <Footer /><div className="mt-8"></div> {/* Footer */}
+      
       <FloatingButton />
 
       {/* The Popup */}
@@ -138,11 +170,11 @@ const HomePage = () => {
             >
               <PopupContainer>
                 <CloseButton onClick={handleClosePopup} />
-                <h2>Enter Your Mobile Number</h2>
+                <Heading>Enter Your Mobile Number</Heading>
                 <InputContainer>
                   <Flag>
                     <img
-                      src="https://upload.wikimedia.org/wikipedia/en/thumb/4/41/Flag_of_India.svg/1200px-Flag_of_India.svg.png"
+                      src={flagImage}
                       alt="India Flag"
                       width="24"
                     />

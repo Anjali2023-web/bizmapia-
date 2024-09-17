@@ -12,76 +12,83 @@ const Footer = () => {
 
   return (
     <footer className="bg-gradient-to-r from-gray-800 to-gray-900 text-white py-12">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+  <div className="container mx-auto px-4">
+    {/* Adjusted grid with even column widths */}
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 lg:gap-16">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <h2 className="text-xl md:text-2xl font-bold mb-4 text-blue-300">About Us</h2>
+        <p className="text-gray-300 leading-relaxed" style={{ textAlign: 'justify' }}>
+          At biZmapia, our mission is to empower local communities by connecting consumers with exceptional businesses in their area. We are dedicated to creating a comprehensive and user-friendly platform that highlights the best local offerings, supports small enterprises, and fosters meaningful relationships between businesses and their customers. Through our commitment to transparency, quality, and community engagement, we strive to enhance the local economy and make it easier for people to discover and support the vibrant businesses that make their neighborhoods unique.
+        </p>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
+        <h2 className="text-xl md:text-2xl font-bold mb-4 text-blue-300">Quick Links</h2>
+        <ul className="space-y-2">
+          {['Home', 'Services', 'Contact', 'About'].map((link, index) => (
+            <motion.li key={index} whileHover={{ x: 5 }} transition={{ type: 'spring', stiffness: 300 }}>
+              <a href="#" className="text-gray-300 hover:text-white transition duration-300">
+                {link}
+              </a>
+            </motion.li>
+          ))}
+        </ul>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.4 }}
+      >
+        <h2 className="text-xl md:text-2xl font-bold mb-4 text-blue-300">Contact Us</h2>
+        <p className="text-gray-300 mb-2">Email: info@popzup.in</p>
+        <p className="text-gray-300 mb-2">Phone: +91 8848 652 609</p>
+        <p className="text-gray-300">
+          1st Floor Pulimoottil Arcade, Muvattupuzha Road, Thodupuzha, Idukki - 685584 
+          <br />(Opposite Adam Star Complex, Near Bhima Jewelry)
+        </p>
+      </motion.div>
+    </div>
+
+    {/* Social icons and footer bottom section */}
+    <div className="mt-12 pt-8 border-t border-gray-700">
+      <div className="flex justify-center space-x-4 lg:space-x-6 mb-4">
+        {socialIcons.map((social, index) => (
+          <motion.a
+            key={index}
+            href="#"
+            className="text-gray-400 hover:text-white transition duration-300"
+            whileHover={{ scale: 1.2 }}
+            whileTap={{ scale: 0.9 }}
           >
-            <h2 className="text-xl md:text-2xl font-bold mb-4 text-blue-300">About Us</h2>
-            <p className="text-gray-300 leading-relaxed">
-              BisMapia is a leading local search engine, connecting businesses with their target audience. Our mission is to empower local businesses and provide the best quality service and customer satisfaction.
-            </p>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            <h2 className="text-xl md:text-2xl font-bold mb-4 text-blue-300">Quick Links</h2>
-            <ul className="space-y-2">
-              {['Home', 'Services', 'Contact', 'About'].map((link, index) => (
-                <motion.li key={index} whileHover={{ x: 5 }} transition={{ type: 'spring', stiffness: 300 }}>
-                  <a href="#" className="text-gray-300 hover:text-white transition duration-300">
-                    {link}
-                  </a>
-                </motion.li>
-              ))}
-            </ul>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
-            <h2 className="text-xl md:text-2xl font-bold mb-4 text-blue-300">Contact Us</h2>
-            <p className="text-gray-300 mb-2">Email: info@popzup.in</p>
-            <p className="text-gray-300 mb-2">Phone: +91 8848 652 609</p>
-            <p className="text-gray-300">
-              1st Floor Pulimoottil Arcade, Muvattupuzha Road, Thodupuzha, Idukki - 685584 
-              <br />(Opposite Adam Star Complex, Near Bhima Jewelry)
-            </p>
-          </motion.div>
-        </div>
-        <div className="mt-12 pt-8 border-t border-gray-700">
-          <div className="flex justify-center space-x-4 lg:space-x-6 mb-4">
-            {socialIcons.map((social, index) => (
-              <motion.a
-                key={index}
-                href="#"
-                className="text-gray-400 hover:text-white transition duration-300"
-                whileHover={{ scale: 1.2 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <span className="sr-only">{social.name}</span>
-                <svg className="h-5 w-5 md:h-6 md:w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d={social.icon} />
-                </svg>
-              </motion.a>
-            ))}
-          </div>
-          <motion.p
-            className="text-center text-gray-400 text-sm md:text-base"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-          >
-            &copy; {currentYear} BisMapia | Powered by WePromote Business Solution
-          </motion.p>
-        </div>
+            <span className="sr-only">{social.name}</span>
+            <svg className="h-5 w-5 md:h-6 md:w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d={social.icon} />
+            </svg>
+          </motion.a>
+        ))}
       </div>
-    </footer>
+      <motion.p
+        className="text-center text-gray-400 text-sm md:text-base"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.6 }}
+      >
+        &copy; {currentYear} bismapia | Powered by WePromote Business Solution
+      </motion.p>
+    </div>
+  </div>
+</footer>
+
+
   );
 };
 

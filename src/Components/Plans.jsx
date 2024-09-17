@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import LoadingSpinner from './LoadingSpinner';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
@@ -7,25 +7,15 @@ import Navbar from './Navbar';
 
 const PricingSection = styled.section`
   display: flex;
-  flex-direction: column; // Column layout to accommodate Navbar
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
-  margin-top: 60px; // Space between Navbar and PricingCard
-  background: url('https://media.istockphoto.com/id/1049658912/photo/business-investment-growth.jpg?s=612x612&w=0&k=20&c=lLwPbgGg8uKgrAiIN1mC4ATrM8f3Czm8YSCEEJ3TWik=') no-repeat center center;
-  background-size: cover;
+  padding: 3rem 2rem;
+  margin-top: 60px;
+  background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
   position: relative;
   min-height: 100vh;
-
-  @media (max-width: 768px) {
-    padding: 1rem;
-    margin-top: 50px; // Adjust space for mobile view
-  }
-
-  @media (max-width: 480px) {
-    padding: 0.5rem;
-    margin-top: 40px; // Adjust space for extra small screens
-  }
+  z-index: 0;
 `;
 
 const Overlay = styled.div`
@@ -34,107 +24,104 @@ const Overlay = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.4);
   z-index: 1;
 `;
 
 const PricingCard = styled(motion.div)`
-  background-color: #ffffff;
-  color: #4b2e2a;
-  border-radius: 10px;
-  padding: 2rem;
-  margin: 1rem;
+  background: #fff;
+  color: #333;
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+  margin: 1.5rem;
   text-align: center;
-  width: 300px;
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+  width: 350px;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
   z-index: 2;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 
   &:hover {
     transform: scale(1.05);
-    transition: all 0.3s ease-in-out;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.3);
   }
 
-  @media (max-width: 1024px) { /* Tablet view */
+  @media (max-width: 1024px) {
     width: 80%;
   }
 
-  @media (max-width: 768px) { /* Mobile view */
+  @media (max-width: 768px) {
     width: 90%;
     padding: 1.5rem;
   }
 
-  @media (max-width: 480px) { /* Extra small screens */
+  @media (max-width: 480px) {
     width: 100%;
-    padding: 1rem;
-    margin: 0.5rem;
+    padding: 1.5rem;
+    margin: 1rem;
   }
 `;
 
 const PriceTag = styled.h2`
-  font-size: 2rem;
-  color: #8b5e3c;
-  margin: 1rem 0;
-
-  @media (max-width: 768px) {
-    font-size: 1.5rem;
-  }
-
-  @media (max-width: 480px) {
-    font-size: 1.2rem;
-  }
+  font-size: 2.5rem;
+  color: #e94e77;
+  margin: 1.5rem 0;
+  background: linear-gradient(to right, #e94e77, #f27121);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
 `;
 
 const PlanName = styled.h3`
-  font-size: 1.5rem;
-  color: #4b2e2a;
-
-  @media (max-width: 768px) {
-    font-size: 1.2rem;
-  }
-
-  @media (max-width: 480px) {
-    font-size: 1rem;
-  }
+  font-size: 1.75rem;
+  color: #333;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
 `;
 
 const FeatureList = styled.ul`
   list-style-type: none;
   padding: 0;
-  margin: 1rem 0;
-
-  @media (max-width: 768px) {
-    margin: 0.5rem 0;
-  }
+  margin: 1rem 0 2rem 0;
 `;
 
 const FeatureItem = styled.li`
-  margin: 0.5rem 0;
-  color: ${(props) => (props.included ? "#4b8b3b" : "#a73d2d")};
+  margin: 0.75rem 0;
+  color: ${(props) => (props.included ? "#27ae60" : "#e74c3c")};
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-align: left;
 `;
 
 const BuyButton = styled.button`
-  background-color: #8b5e3c;
+  background: linear-gradient(to right, #f27121, #e94e77);
   color: white;
-  padding: 0.75rem 1.5rem;
+  padding: 0.75rem 2rem;
   border: none;
-  border-radius: 5px;
+  border-radius: 30px;
   cursor: pointer;
-  font-size: 1rem;
-  margin-top: 1rem;
+  font-size: 1.1rem;
+  margin-top: 1.5rem;
+  transition: background 0.3s ease-in-out, transform 0.2s ease;
 
   &:hover {
-    background-color: #6f4f28;
+    background: linear-gradient(to right, #e94e77, #f27121);
+    transform: scale(1.05);
   }
 
   @media (max-width: 768px) {
-    font-size: 0.9rem;
-    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    padding: 0.6rem 1.8rem;
   }
 
   @media (max-width: 480px) {
-    font-size: 0.8rem;
-    padding: 0.5rem 0.8rem;
+    font-size: 0.9rem;
+    padding: 0.6rem 1.6rem;
   }
 `;
 
@@ -142,65 +129,80 @@ const BreakpointWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  z-index: 2;
+`;
+
+const HomeButton = styled.button`
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: #6a11cb; /* Match your design scheme */
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 1rem;
+  z-index: 3;
+
+  &:hover {
+    background: #2575fc; /* Slightly lighter for hover effect */
+  }
 `;
 
 const plans = [
   {
-    name: "99 Basic Business Listing Pack",
+    name: "Basic Plan",
     price: "₹99 / Monthly",
     features: [
-      { name: "Listing (1)", included: true },
-      { name: "Image Per Listing (1)", included: true },
-      { name: "Listing Enquiry Form", included: true },
-      { name: "Video", included: false },
-      { name: "Amenities Per Listing", included: false },
-      { name: "Social Link Per Listing", included: false },
-      { name: "FAQ Per Listing", included: false },
-      { name: "Business Hours", included: false },
-      { name: "WhatsApp", included: false },
-      { name: "TeleGram", included: false },
-      { name: "TawkTo", included: false },
+      { name: "Verified Business (Name turns blue and shows tick icon)", included: true },
+      { name: "Location (Accessible through Google Maps)", included: true },
+      { name: "Phone Number Active (Customer can dial)", included: true },
+      { name: "Profile Photo Upload", included: true },
+      { name: "Cover Image Upload (1 free)", included: true },
+      { name: "Featured Image Post (₹49 for 7 days)", included: true },
+      { name: "Featured Video Post (₹99 for 7 days)", included: true },
     ],
   },
   {
-    name: "299 Business Listing Plan",
+    name: "Premium Plan",
     price: "₹299 / Monthly",
     features: [
-      { name: "Listing (5)", included: true },
-      { name: "Image Per Listing (3)", included: true },
-      { name: "Listing Enquiry Form", included: true },
-      { name: "Video", included: true },
-      { name: "Amenities Per Listing (5)", included: true },
-      { name: "Social Link Per Listing (5)", included: true },
-      { name: "FAQ Per Listing (5)", included: true },
-      { name: "Business Hours", included: true },
-      { name: "WhatsApp", included: true },
-      { name: "TeleGram", included: true },
-      { name: "TawkTo", included: true },
+      { name: "Verified Business (Name turns blue and shows tick icon)", included: true },
+      { name: "Location (Accessible through Google Maps)", included: true },
+      { name: "Phone Number Active (Customer can dial)", included: true },
+      { name: "Profile Photo Upload", included: true },
+      { name: "Cover Image Upload (1 free)", included: true },
+      { name: "Gallery Images (4 free)", included: true },
+      { name: "Website Address Sharing", included: true },
+      { name: "Featured Images (2)", included: true },
+      { name: "Featured Image Post (₹49 for 7 days)", included: true },
+      { name: "Featured Video Post (₹99 for 7 days)", included: true },
     ],
   },
   {
-    name: "799 Business Listing Plan",
+    name: "Ultra Premium Plan",
     price: "₹799 / Monthly",
     features: [
-      { name: "Listing (5)", included: true },
-      { name: "Image Per Listing (10)", included: true },
-      { name: "Listing Enquiry Form", included: true },
-      { name: "Video", included: true },
-      { name: "Amenities Per Listing (10)", included: true },
-      { name: "Social Link Per Listing (10)", included: true },
-      { name: "FAQ Per Listing (10)", included: true },
-      { name: "Business Hours", included: true },
-      { name: "WhatsApp", included: true },
-      { name: "TeleGram", included: true },
-      { name: "TawkTo", included: true },
+      { name: "Verified Business (Name turns blue and shows tick icon)", included: true },
+      { name: "Location (Accessible through Google Maps)", included: true },
+      { name: "Phone Number Active (Customer can dial)", included: true },
+      { name: "Profile Photo Upload", included: true },
+      { name: "Cover Image Upload (1 free)", included: true },
+      { name: "Gallery Images (4 free)", included: true },
+      { name: "Website Address Sharing", included: true },
+      { name: "Featured Images (4)", included: true },
+      { name: "Featured Video (1)", included: true },
+      { name: "Lead Generation on Category Searches", included: true },
+      { name: "Social Media Integration", included: true },
+      { name: "Featured Image Post (₹49 for 7 days)", included: true },
+      { name: "Featured Video Post (₹99 for 7 days)", included: true },
     ],
   },
 ];
 
 const PricingTable = () => {
   const navigate = useNavigate();
-  const location = useLocation();
   const [loading, setLoading] = useState(false);
 
   const handleBuyClick = (planIndex) => {
@@ -213,7 +215,11 @@ const PricingTable = () => {
       } else if (planIndex === 2) {
         navigate("/offerss");
       }
-    }, 500); // simulate loading time
+    }, 500);
+  };
+
+  const handleHomeClick = () => {
+    navigate('/');
   };
 
   useEffect(() => {
@@ -221,7 +227,7 @@ const PricingTable = () => {
       setLoading(true);
       setTimeout(() => {
         navigate('/');
-      }, 500); // simulate loading time
+      }, 500);
     };
 
     window.addEventListener('popstate', handleBackButton);
@@ -234,9 +240,10 @@ const PricingTable = () => {
   return (
     <>
       {loading && <LoadingSpinner />}
-      <Navbar /> {/* Add Navbar at the top */}
+      <Navbar />
       <PricingSection>
         <Overlay />
+        <HomeButton onClick={handleHomeClick}>Home</HomeButton>
         <BreakpointWrapper>
           {plans.map((plan, index) => (
             <PricingCard
